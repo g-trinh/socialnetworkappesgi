@@ -16,12 +16,8 @@
 	$helper = new FacebookRedirectLoginHelper( "https://socialnetworkappesgi.herokuapp.com/" );
 	$session = $helper->getSessionFromRedirect();
 
-	if( $session != null ){
-		$_SESSION['fbToken'] = (string) $session->getAccessToken();
-	}
-
 	if( isset( $_SESSION ) && isset($_SESSION['fbToken']) ) {
-		$user = new FacebookSession( $_SESSION['fbToken'] );
+		$session = new FacebookSession( $_SESSION['fbToken'] );
 		$logoutUrl = $helper->getLogoutUrl( $user, "https://socialnetworkappesgi.herokuapp.com/" );
 	} else {
 		$loginUrl = $helper->getLoginUrl();
@@ -56,8 +52,8 @@
 		</script>
 
 		<h1>Mon app FB :</h1>
-		<?php if( isset( $loginUrl) ) : ?><a href="<?php echo $loginUrl; ?>">Se connecter</a><?php endif; ?>
-		<?php if( isset( $logoutUrl) ) : ?><a href="<?php echo $logoutUrl; ?>">Se déconnecter</a><?php endif; ?>
+		<?php if( !isset( $session ) ) : ?><a href="<?php echo $loginUrl; ?>">Se connecter</a><?php endif; ?>
+		<?php if( isset( $session ) ) : ?><a href="<?php echo $logoutUrl; ?>">Se déconnecter</a><?php endif; ?>
 		<div
 		  class="fb-like"
 		  data-share="true"
@@ -65,4 +61,10 @@
 		  data-show-faces="true">
 		</div>
 	</body>
+
+	<?php
+		if( $session )
+			$_SESSION['fbToken'] = (string) $session->getAccessToken();
+		else
+	?>
 </html>
