@@ -55,7 +55,7 @@
 		</script>
 
 		<h1>Mon app FB :</h1>
-		<p>Hello <?php if( isset( $user ) ) : echo $user->getName(); ?>! <?php ?></p>
+		<p>Hello <?php if( isset( $user ) ) : echo $user->getName(); endif;?>! <?php ?></p>
 		<?php if( !isset( $session ) ) : ?><a href="<?php echo $loginUrl; ?>">Se connecter</a><?php endif; ?>
 		<?php if( isset( $session ) ) : ?><a href="<?php echo $logoutUrl; ?>">Se déconnecter</a><?php endif; ?>
 		<div
