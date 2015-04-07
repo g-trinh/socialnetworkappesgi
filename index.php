@@ -4,9 +4,9 @@
 
 	session_start();
 
+	require "conf.php";
 	require "vendor/autoload.php";
-	const APPID = "593840247407880";
-	const APPSECRET = "267d2b5f5df0548ff2e2a1f7f544da5f";
+
 
 	use Facebook\FacebookSession;
 	use Facebook\FacebookRedirectLoginHelper;
@@ -14,7 +14,19 @@
 	FacebookSession::setDefaultApplication(APPID, APPSECRET);
 
 	$helper = new FacebookRedirectLoginHelper( "https://socialnetworkappesgi.herokuapp.com/" );
-	$loginUrl = $helper->getLoginUrl();
+	$session = $helper->getSessionFromRedirect();
+
+	if( $session != null ){
+		$_SESSION['fbToken'] = (string) $session->getAccessToken();
+	}
+
+	if( isset( $_SESSION ) && isset($_SESSION['fbToken']) ) {
+		$user = new FacebookSession( $_SESSION['fbToken'] );
+		$logoutUrl = $helper->getLogoutUrl( $user, "https://socialnetworkappesgi.herokuapp.com/" );
+	} else {
+		$loginUrl = $helper->getLoginUrl();
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +56,8 @@
 		</script>
 
 		<h1>Mon app FB</h1>
-		<a href="<?php echo $loginUrl; ?>">Se connecter</a>
+		<?php if( isset( $loginUrl) ) : ?><a href="<?php echo $loginUrl; ?>">Se connecter</a><?php endif; ?>
+		<?php if( isset( $logoutUrl) ) : ?><a href="<?php echo $logoutUrl; ?>">Se déconnecter</a><?php endif; ?>
 		<div
 		  class="fb-like"
 		  data-share="true"
