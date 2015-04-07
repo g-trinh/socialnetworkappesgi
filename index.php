@@ -55,7 +55,7 @@
 		   }(document, 'script', 'facebook-jssdk'));
 		</script>
 
-		<h1>Mon app FB</h1>
+		<h1>Mon app FB :</h1>
 		<?php if( isset( $loginUrl) ) : ?><a href="<?php echo $loginUrl; ?>">Se connecter</a><?php endif; ?>
 		<?php if( isset( $logoutUrl) ) : ?><a href="<?php echo $logoutUrl; ?>">Se déconnecter</a><?php endif; ?>
 		<div
