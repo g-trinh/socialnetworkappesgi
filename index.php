@@ -65,6 +65,5 @@
 	<?php
 		if( $session )
 			$_SESSION['fbToken'] = (string) $session->getAccessToken();
-		else
 	?>
 </html>
