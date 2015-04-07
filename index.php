@@ -13,7 +13,7 @@
 
 	FacebookSession::setDefaultApplication(APPID, APPSECRET);
 
-	$helper = new FacebookRedirectLoginHelper( "https://socialnetworkappesgi.herokuapp.com/", APPID, APPSECRET );
+	$helper = new FacebookRedirectLoginHelper( "https://socialnetworkappesgi.herokuapp.com/" );
 	$loginUrl = $helper->getLoginUrl();
 
 	var_dump($loginUrl);
