@@ -1,6 +1,22 @@
 <?php
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+
+	session_start();
+
+	require "vendor/autoload.php";
 	const APPID = "593840247407880";
 	const APPSECRET = "267d2b5f5df0548ff2e2a1f7f544da5f";
+
+	use Facebook\FacebookSession;
+	use Facebook\FacebookRedirectLoginHelper;
+
+	FacebookSession::setDefaultApplication(APPID, APPSECRET);
+
+	$helper = new FacebookRedirectLoginHelper( $_SERVER['HTTP_HOST'], APPID, APPSECRET );
+	$loginUrl = $helper->getLoginUrl();
+
+	var_dump($loginUrl);
 ?>
 
 <!DOCTYPE html>
