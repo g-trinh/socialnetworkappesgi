@@ -21,7 +21,6 @@
 		$session = new FacebookSession( $_SESSION['fbToken'] );
 		$user = new FacebookRequest( $session, "GET", "/me");
 		$user = $user->execute()->getGraphObject( \Facebook\GraphUser::className() );
-		var_dump($user);
 		$logoutUrl = $helper->getLogoutUrl( $session, "https://socialnetworkappesgi.herokuapp.com/" );
 	} else {
 		$loginUrl = $helper->getLoginUrl();
@@ -56,7 +55,7 @@
 		</script>
 
 		<h1>Mon app FB :</h1>
-		<p>Hello ! <?php ?></p>
+		<p>Hello <?php if( isset( $user ) ) : echo $user->getName(); ?>! <?php ?></p>
 		<?php if( !isset( $session ) ) : ?><a href="<?php echo $loginUrl; ?>">Se connecter</a><?php endif; ?>
 		<?php if( isset( $session ) ) : ?><a href="<?php echo $logoutUrl; ?>">Se déconnecter</a><?php endif; ?>
 		<div
