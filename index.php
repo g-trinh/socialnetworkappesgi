@@ -18,7 +18,7 @@
 
 	if( isset( $_SESSION ) && isset($_SESSION['fbToken']) ) {
 		$session = new FacebookSession( $_SESSION['fbToken'] );
-		$logoutUrl = $helper->getLogoutUrl( $user, "https://socialnetworkappesgi.herokuapp.com/" );
+		$logoutUrl = $helper->getLogoutUrl( $session, "https://socialnetworkappesgi.herokuapp.com/" );
 	} else {
 		$loginUrl = $helper->getLoginUrl();
 	}
