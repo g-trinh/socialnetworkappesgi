@@ -15,8 +15,6 @@
 
 	$helper = new FacebookRedirectLoginHelper( "https://socialnetworkappesgi.herokuapp.com/" );
 	$loginUrl = $helper->getLoginUrl();
-
-	var_dump($loginUrl);
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +44,7 @@
 		</script>
 
 		<h1>Mon app FB</h1>
+		<a href="<?php echo $loginUrl; ?>">Se connecter</a>
 		<div
 		  class="fb-like"
 		  data-share="true"
