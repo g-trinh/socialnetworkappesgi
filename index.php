@@ -9,6 +9,7 @@
 
 
 	use Facebook\FacebookSession;
+	use Facebook\FacebookRequest;
 	use Facebook\FacebookRedirectLoginHelper;
 
 	FacebookSession::setDefaultApplication(APPID, APPSECRET);
@@ -18,6 +19,9 @@
 
 	if( isset( $_SESSION ) && isset($_SESSION['fbToken']) ) {
 		$session = new FacebookSession( $_SESSION['fbToken'] );
+		$user = new FacebookRequest( $session, "GET", "/me");
+		$user = $user->execute()->getGraphObject( \Facebook\GraphUser::className() );
+		var_dump($user);
 		$logoutUrl = $helper->getLogoutUrl( $session, "https://socialnetworkappesgi.herokuapp.com/" );
 	} else {
 		$loginUrl = $helper->getLoginUrl();
@@ -52,6 +56,7 @@
 		</script>
 
 		<h1>Mon app FB :</h1>
+		<p>Hello ! <?php ?></p>
 		<?php if( !isset( $session ) ) : ?><a href="<?php echo $loginUrl; ?>">Se connecter</a><?php endif; ?>
 		<?php if( isset( $session ) ) : ?><a href="<?php echo $logoutUrl; ?>">Se déconnecter</a><?php endif; ?>
 		<div
