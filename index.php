@@ -6,6 +6,6 @@
 		<meta title="description" content="contenu de ma page">
 	</head>
 	<body>
-		Hello
+		Hello world !
 	</body>
 </html>
